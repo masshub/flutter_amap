@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     locations.add(LatLng(30.280121, 120.340859));
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //          ),
 //        ]
 
-        );
+    );
   }
 
   Widget _isAnimationButton() {
@@ -147,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
 
   void onMapCreated(AMapController controller) async {
     print("onMapCreated");
@@ -187,25 +189,24 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: BitmapDescriptor.fromAsset('assets/images/RED.png'));
         mapController.addMarker(options);
       }
+      // 注册监听
+      mapController.onMapLoaded.add(onMapLoaded);
+      mapController.onCameraChanged.add(onCameraChanged);
+    }
+  }
+
+
+    void onMapLoaded(argument) {
+      print("onMapLoaded");
     }
 
-    // 注册监听
-    mapController.onMapLoaded.add(onMapLoaded);
-
-    mapController.onCameraChanged.add(onCameraChanged);
-  }
-
-  void onMapLoaded(argument) {
-    print("onMapLoaded");
-  }
-
-  void onCameraChanged(CameraPosition cameraPostion) {
-    AMapLocationClient.onLocationUpate.listen((AMapLocation loc) {
-      if (!mounted) return;
-      setState(() {
+    void onCameraChanged(CameraPosition cameraPostion) {
+      AMapLocationClient.onLocationUpate.listen((AMapLocation loc) {
+        if (!mounted) return;
+        setState(() {
 //        mapController.changeCamera(CameraPosition(target: LatLng(loc.latitude, loc.longitude)), true);
+        });
       });
-    });
-    print("onCameraChanged " + onCameraChanged.toString());
+      print("onCameraChanged " + onCameraChanged.toString());
+    }
   }
-}

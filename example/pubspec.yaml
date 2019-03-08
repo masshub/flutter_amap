@@ -35,16 +35,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/navi_map_gps_locked.png
-    - assets/images/poi_marker_1.png
-    - assets/images/poi_marker_2.png
-    - assets/images/poi_marker_3.png
-    - assets/images/poi_marker_4.png
-    - assets/images/poi_marker_5.png
-    - assets/images/poi_marker_6.png
-    - assets/images/poi_marker_7.png
-    - assets/images/poi_marker_8.png
-    - assets/images/poi_marker_9.png
-    - assets/images/poi_marker_10.png
     - assets/images/MAGENTA.png
     - assets/images/CYAN.png
     - assets/images/RED.png
