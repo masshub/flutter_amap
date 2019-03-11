@@ -8,7 +8,11 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -40,7 +44,7 @@ import io.flutter.plugin.platform.PlatformView;
  */
 public class AMapController implements PlatformView, Application.ActivityLifecycleCallbacks,
         MethodChannel.MethodCallHandler, AMap.OnMapLoadedListener, AMap.OnCameraChangeListener,
-        AMap.OnMarkerClickListener, AMap.OnMyLocationChangeListener{
+        AMap.OnMarkerClickListener, AMap.OnMyLocationChangeListener, AMap.InfoWindowAdapter {
 
     public static final String CHANNEL = "com.flutter.amap";
     public static final String AMAP_ON_MAP_LOAD = "amap_on_map_load";
@@ -61,6 +65,7 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
     private AMap aMap;
     private MyLocationStyle myLocationStyle;
     private UiSettings uiSettings;
+    private View infoWindow;
 
 
 
@@ -106,6 +111,10 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
         aMap.setOnMarkerClickListener(this);
         // 定位
         aMap.setOnMyLocationChangeListener(this);
+        // infowindow
+        aMap.setInfoWindowAdapter(this);
+
+
 
 
     }
@@ -284,7 +293,8 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return true;
+        marker.showInfoWindow();
+        return false;
     }
 
     @Override
@@ -303,6 +313,47 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
             methodChannel.invokeMethod(AMAP_UPDATE_LOCATION, map);
         }
 
+    }
+
+    @Override
+    public View getInfoWindow(final Marker marker) {
+        infoWindow = LayoutInflater.from(context).inflate(R.layout.infowindow,null);
+        TextView name = infoWindow.findViewById(R.id.tv_name);
+        TextView distance = infoWindow.findViewById(R.id.tv_distance);
+        TextView appointment = infoWindow.findViewById(R.id.tv_appointment);
+        ImageView close = infoWindow.findViewById(R.id.iv_close);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                marker.setInfoWindowEnable(false);
+                marker.setInfoWindowEnable(true);
+//                infoWindow.setVisibility(View.GONE);
+//                infoWindow.destroyDrawingCache();
+
+            }
+        });
+
+        appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                marker.setInfoWindowEnable(false);
+                marker.setInfoWindowEnable(true);
+                Toast.makeText(context,"预约成功",Toast.LENGTH_SHORT).show();
+//                infoWindow.setVisibility(View.GONE);
+//                infoWindow.destroyDrawingCache();
+
+            }
+        });
+
+
+
+        return infoWindow;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
     }
 
 }
