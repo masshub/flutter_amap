@@ -1,21 +1,21 @@
 part of flutter_amap;
 
-class AMapController extends ChangeNotifier{
-
+class AMapController extends ChangeNotifier {
   static const String CHANNEL = "com.flutter.amap";
   static const String AMAP_ON_MAP_LOAD = "amap_on_map_load";
   static const String AMAP_ON_CAMERA_CHANGE = "amap_on_camera_change";
   static const String AMAP_CHANGE_CAMERA = "amap_change_camera";
   static const String AMAP_ADD_MARKER = "amap_add_marker";
   static const String AMAP_UPDATE_MARKER = "amap_update_marker";
+  static const String AMAP_INFOWINDOW = "amap_infowindow";
+  static const String AMAP_APPOINTMENT = "amap_appointment";
+  static const String AMAP_MARKER_CLICK = "amap_marker_click";
 
   final int _id;
 
   AMapController._(this._id)
-      : assert(_id != null)
-  ,
-        _channel = new MethodChannel(CHANNEL + _id.toString())
-  {
+      : assert(_id != null),
+        _channel = new MethodChannel(CHANNEL + _id.toString()) {
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 
@@ -26,10 +26,9 @@ class AMapController extends ChangeNotifier{
     return AMapController._(id);
   }
 
-
   /// 地图状态发生变化的监听接口。
-  final ArgumentCallbacks<CameraPosition> onCameraChanged = ArgumentCallbacks<
-      CameraPosition>();
+  final ArgumentCallbacks<CameraPosition> onCameraChanged =
+      ArgumentCallbacks<CameraPosition>();
 
   /// 地图状态发生变化的监听接口。
   final ArgumentCallbacks onMapLoaded = ArgumentCallbacks();
@@ -38,22 +37,37 @@ class AMapController extends ChangeNotifier{
   Set<Marker> get markers => Set<Marker>.from(_markers.values);
   final Map<String, Marker> _markers = <String, Marker>{};
 
-
   Future<dynamic> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case AMAP_ON_MAP_LOAD:
         onMapLoaded.call(null);
         break;
       case AMAP_ON_CAMERA_CHANGE:
-        CameraPosition cameraPosition = CameraPosition.fromMap(
-            call.arguments['position']);
+        CameraPosition cameraPosition =
+            CameraPosition.fromMap(call.arguments['position']);
         onCameraChanged.call(cameraPosition);
+        break;
+      case AMAP_INFOWINDOW:
+        break;
+      case AMAP_APPOINTMENT:
+        String id = call.arguments['appointment'];
+        print('appointment_id:$id');
+        break;
+      case AMAP_MARKER_CLICK:
+//        Object click = call.arguments['onMarkerClick'];
+        print('点击markersssssssssss${call.arguments['onMarkerClick'].toString()}');
+        await _channel.invokeMethod(AMAP_INFOWINDOW, <String, dynamic>{
+          'name': 'max',
+          'distance': '11.22',
+          'id':'888888'
+        });
+        notifyListeners();
+
         break;
       default:
         throw MissingPluginException();
     }
   }
-
 
   /// 地图操作
   void changeCamera(CameraPosition cameraPosition, bool isAnimate) {
@@ -63,12 +77,10 @@ class AMapController extends ChangeNotifier{
     }
   }
 
-
   /// 覆盖物添加
   Future<Marker> addMarker(MarkerOptions options) async {
-
     final MarkerOptions effectiveOptions =
-    MarkerOptions.defaultOptions.copyWith(options);
+        MarkerOptions.defaultOptions.copyWith(options);
     final String markerId = await _channel.invokeMethod(
       AMAP_ADD_MARKER,
       <String, dynamic>{
@@ -98,8 +110,7 @@ class AMapController extends ChangeNotifier{
     notifyListeners();
   }
 
-
-///
-/// 工具转换
+  ///
+  /// 工具转换
 
 }

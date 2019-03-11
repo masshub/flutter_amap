@@ -54,6 +54,9 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
     public static final String AMAP_UPDATE_MARKER = "amap_update_marker";
     public static final String AMAP_UPDATE_LOCATION = "amap_update_location";
     public static final String AMAP_KEY = "amap_key";
+    public static final String AMAP_INFOWINDOW = "amap_infowindow";
+    public static final String AMAP_APPOINTMENT = "amap_appointment";
+    public static final String AMAP_MARKER_CLICK = "amap_marker_click";
 
 
     private final Context context;
@@ -72,6 +75,10 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
     private boolean disposed = false;
     private final int registrarActivityHashCode;
     private final Map<String, Marker> markers;
+    private Map<String,String> infoWindowClick;
+    private TextView mName;
+    private TextView mDistance;
+    private String mId;
 
     public AMapController(Context context, AtomicInteger atomicInteger,
                           PluginRegistry.Registrar registrar, int id) {
@@ -113,9 +120,6 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
         aMap.setOnMyLocationChangeListener(this);
         // infowindow
         aMap.setInfoWindowAdapter(this);
-
-
-
 
     }
 
@@ -221,7 +225,6 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
             case AMAP_ADD_MARKER:
                 markerOptions = AMapConvert.toMarkerOptions(methodCall.argument("options"));
                 marker = aMap.addMarker(markerOptions);
-
                 markers.put(marker.getId(), marker);
 
                 // 将marker唯一标识传递回去
@@ -239,6 +242,22 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
                 break;
             case AMAP_KEY:
                 result.success(true);
+                break;
+            case AMAP_APPOINTMENT:
+                // 点击预约，返回需要数据，通知flutter进行相应处理
+
+                break;
+            case AMAP_INFOWINDOW:
+                // 初始化InfoWindow信息
+                String name = methodCall.argument("name");
+                String distance = methodCall.argument("distance");
+                mId = methodCall.argument("id");
+                mName.setText(name);
+                mDistance.setText(distance + "KM");
+                Log.d("infowindow信息",name +","+ distance + "," + mId);
+                Toast.makeText(context,name +","+ distance + "," + mId,Toast.LENGTH_SHORT).show();
+                marker.showInfoWindow();
+                result.success(null);
                 break;
             default:
                 result.notImplemented();
@@ -293,7 +312,13 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        marker.showInfoWindow();
+        if (methodChannel != null) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("onMarkerClick","yse");
+            methodChannel.invokeMethod(AMAP_MARKER_CLICK,map);
+        }
+        Toast.makeText(context,"点击了marker",Toast.LENGTH_SHORT).show();
+//        marker.showInfoWindow();
         return false;
     }
 
@@ -318,9 +343,9 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
     @Override
     public View getInfoWindow(final Marker marker) {
         infoWindow = LayoutInflater.from(context).inflate(R.layout.infowindow,null);
-        TextView name = infoWindow.findViewById(R.id.tv_name);
-        TextView distance = infoWindow.findViewById(R.id.tv_distance);
-        TextView appointment = infoWindow.findViewById(R.id.tv_appointment);
+        mName = infoWindow.findViewById(R.id.tv_name);
+        mDistance = infoWindow.findViewById(R.id.tv_distance);
+        final TextView appointment = infoWindow.findViewById(R.id.tv_appointment);
         ImageView close = infoWindow.findViewById(R.id.iv_close);
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -328,9 +353,6 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
             public void onClick(View v) {
                 marker.setInfoWindowEnable(false);
                 marker.setInfoWindowEnable(true);
-//                infoWindow.setVisibility(View.GONE);
-//                infoWindow.destroyDrawingCache();
-
             }
         });
 
@@ -340,8 +362,13 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
                 marker.setInfoWindowEnable(false);
                 marker.setInfoWindowEnable(true);
                 Toast.makeText(context,"预约成功",Toast.LENGTH_SHORT).show();
-//                infoWindow.setVisibility(View.GONE);
-//                infoWindow.destroyDrawingCache();
+
+                if (methodChannel != null) {
+                    Map<String,Object> arguments = new HashMap<>();
+                    arguments.put("appointment",mId);
+                    methodChannel.invokeMethod(AMAP_APPOINTMENT,arguments);
+
+                }
 
             }
         });
@@ -355,5 +382,6 @@ public class AMapController implements PlatformView, Application.ActivityLifecyc
     public View getInfoContents(Marker marker) {
         return null;
     }
+
 
 }

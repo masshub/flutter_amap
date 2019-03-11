@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c64fd747-9143-47c2-8250-09b6b7c89f20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/layout/infowindow.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/max/flutteramap/AMapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/max/flutteramap/AMapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/AMapController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/AMapController.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -50,16 +44,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/src/AMapController.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="96" selection-start-line="96" selection-end-line="96" />
+            <state relative-caret-position="181">
+              <caret line="58" column="51" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/Marker.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="138" column="10" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1143">
@@ -101,6 +104,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>apilocate.amap.com</find>
+      <find>com.max.flutteramap0</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Flutter\flutter_windows_v0.11.9-beta\flutter\bin\cache\artifacts\engine\android-arm\flutter.jar</dir>
@@ -123,10 +127,10 @@
         <option value="$PROJECT_DIR$/lib/src/CameraPosition.dart" />
         <option value="$PROJECT_DIR$/lib/src/Callbacks.dart" />
         <option value="$PROJECT_DIR$/lib/src/BitmapDescriptor.dart" />
-        <option value="$PROJECT_DIR$/lib/src/AMapController.dart" />
         <option value="$PROJECT_DIR$/lib/src/AMap.dart" />
         <option value="$PROJECT_DIR$/lib/flutter_amap.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/lib/src/AMapController.dart" />
       </list>
     </option>
   </component>
@@ -316,10 +320,10 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.10344828" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.11012236" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.2625139" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Logcat" order="4" weight="0.69187987" />
+      <window_info anchor="bottom" id="Logcat" order="4" weight="0.16907676" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Terminal" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -410,13 +414,6 @@
     <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/Marker.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="130" column="33" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/amap_location_option.dart" />
     <entry file="file://$PROJECT_DIR$/lib/flutter_amap.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -457,13 +454,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/AMapController.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -478,6 +468,20 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/Marker.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="138" column="10" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/AMapController.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="58" column="51" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="51" />
         </state>
       </provider>
     </entry>
